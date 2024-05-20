@@ -15,11 +15,11 @@
 @section('main')<div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Peminjaman</h1>
+                <h1>Pengembalian</h1>
 
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item">selesai : 2</div>
-                    <div class="breadcrumb-item">Pengembalian : 2</div>
+                    {{-- <div class="breadcrumb-item">selesai : 2</div>
+                    <div class="breadcrumb-item">Pengembalian : 2</div> --}}
                 </div>
             </div>
 

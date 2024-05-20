@@ -18,8 +18,8 @@
                 <h1>List Peminjaman</h1>
 
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item">Pengajuan : 2</div>
-                    <div class="breadcrumb-item">Pengembalian : 2</div>
+                    {{-- <div class="breadcrumb-item">Pengajuan : 2</div>
+                    <div class="breadcrumb-item">Pengembalian : 2</div> --}}
                 </div>
             </div>
 
