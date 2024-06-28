@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Blank Page')
+@section('title', 'Pengembalian')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -29,7 +29,7 @@
                         <li class="nav-item">
                             <a class="nav-link active" id="tabs-1" data-toggle="pill" href="#tabs-peminjaman"
                                 role="tab" aria-controls="tabs-peminjaman" aria-selected="true">
-                                Peminjaman</a>
+                                Pengembalian</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " id="tabs-2" data-toggle="pill" href="#tabs-selesai" role="tab"
@@ -46,52 +46,90 @@
 
                                 <div class="tab-pane fade  show active" id="tabs-peminjaman" role="tabpanel"
                                     aria-labelledby="tabs-1">
-                                    <h5>Peminjaman</h5>
+                                    <h5>Pengembalian</h5>
                                     <hr>
-                                    <div class="table-responsive">
-                                        <table class="table-striped table">
-                                            <tr>
+                                    <table class="table " id="table-pengembalian">
 
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>No Berkas</th>
+                                                <th>Provinsi</th>
+                                                <TH>Kabupaten</TH>
                                                 <th>Kecamatan</th>
                                                 <th>Kelurahan</th>
-                                                <th>No Berkas</th>
+                                                <th>Pelayanan</th>
                                                 <th>Tipe Hak</th>
                                                 <th>No Hak</th>
-                                                <th>Jenis</th>
-                                                 <th>Pelayanan</th>
+                                                <th>Jenis Arsip</th>
+                                                <th>Rak</th>
+                                                <th>Baris</th>
+                                                <th>Kolom</th>
+                                                <th>Bundle</th>
+                                                <th>Status</th>
                                                 <th>Keterangan</th>
-                                                <th>Waktu</th>
-                                                <th> Status</th>
-                                                <th>History</th>
-                                                <th>User</th>
+                                                <th>Waktu Dipinjam</th>
+                                                <th>Waktu Disetujui</th>
+                                                <th>Ubah Status</th>
                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($pinjambukutanahs as $buku)
+                                                @if ($buku->status == 'Arsip Dikirim')
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $buku->no_su }}</td>
+                                                        <td>{{ $buku->provinsi }}</td>
+                                                        <td>{{ $buku->kabupaten }}</td>
+                                                        <td>{{ $buku->kecamatan }}</td>
+                                                        <td>{{ $buku->kelurahan }}</td>
+                                                        <td>{{ $buku->pelayanan }}</td>
+                                                        <td>{{ $buku->tipe_hak }}</td>
+                                                        <td>{{ $buku->no_hak }}</td>
+                                                        <td>{{ $buku->jenis }}</td>
+
+                                                        <td>{{ $buku->rak }}</td>
+                                                        <td>{{ $buku->baris }}</td>
+                                                        <td>{{ $buku->kolom }}</td>
+                                                        <td>{{ $buku->bundle }}</td>
+                                                        <td>{{ $buku->status }}</td>
+                                                        <td>{{ $buku->keterangan }}</td>
+                                                        <td>{{ $buku->waktu_dipinjam }}</td>
+                                                        <td>{{ $buku->waktu_disetujui }}</td>
+                                                        <td>
+                                                            @if ($buku->status == 'Arsip Dikirim')
+                                                                {{-- <button class="btn btn-success">Telah Disetujui</button> --}}
+                                                                <form id="user-form3"
+                                                                    action="{{ route('pengembalian.update', $buku->id_pinjam) }}"
+                                                                    method="POST" class="ml-2">
+                                                                    <input type="hidden" name="_method" value="PUT">
+                                                                    <input type="hidden" name="_token"
+                                                                        value="{{ csrf_token() }}">
+                                                                    <button type="button" class="btn btn-primary"
+                                                                        id="confirmation3">Ubah</button>
+
+                                                                </form>
+                                                            @endif
 
 
-                                            <tr>
-
-                                                <td>Kota Timur</td>
-                                                <td>Wongkaditi</td>
-                                                <td>11100</td>
-                                                <td>Hak Milik</td>
-                                                <td>08500</td>
-                                                <td>BT</td>
-                                                <td>Permisahan</td>
-                                                <td>untuk proses permisahan pak Debi</td>
-                                                <td>17-Mei-2024 04.40</td>
-                                                <td> <button class="btn btn-icon btn-success"><i
-                                                    class="fa fa-check"></i>Peminjaman</button></td>
-                                                <td>
-
-                                                    <button class="btn btn-icon btn-primary"><i
-                                                            class="fa fa-search"></i></button>
-                                                </td>
-                                                <td>Admin</td>
-                                            </tr>
 
 
+                                                        </td>
+                                                        {{-- <td> --}}
+                                                        {{-- <button class="btn btn-primary" id="modal-2">Ubah Status</button> --}}
+                                                        {{-- <button type="button" class="btn btn-primary"
+                                                                data-toggle="modal" data-target="#ubahStatusModal"
+                                                                data-id="{{ $buku->id_pinjam }}">
+                                                                Ubah Status
+                                                            </button> --}}
+                                                        {{-- </td> --}}
 
-                                        </table>
-                                    </div>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+
 
 
 
@@ -107,7 +145,7 @@
 
                                     <h5>selesai</h5>
                                     <hr>
-                                    <div class="float-right">
+                                    {{-- <div class="float-right">
                                         <form method="GET" action="">
                                             <div class="input-group">
                                                 <input type="text" class="form-control" placeholder="Search"
@@ -117,51 +155,90 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="clearfix mb-3"></div>
 
-                                    <div class="table-responsive">
-                                        <table class="table-striped table">
+                                    <table class="table " id="table-selesai">
+
+                                        <thead>
                                             <tr>
                                                 <th>#</th>
+                                                <th>No Berkas</th>
+                                                <th>Provinsi</th>
+                                                <TH>Kabupaten</TH>
                                                 <th>Kecamatan</th>
                                                 <th>Kelurahan</th>
-                                                <th>No Berkas</th>
+                                                <th>Pelayanan</th>
                                                 <th>Tipe Hak</th>
                                                 <th>No Hak</th>
-                                                <th>Jenis</th>
-                                                <th>Pelayanan</th>
+                                                <th>Jenis Arsip</th>
+                                                <th>Rak</th>
+                                                <th>Baris</th>
+                                                <th>Kolom</th>
+                                                <th>Bundle</th>
                                                 <th>Keterangan</th>
-                                                <th>Waktu</th>
+                                                <th>Waktu Pengajuan</th>
+                                                <th>Waktu Disetujui</th>
                                                 <th> Status</th>
-                                                <th>User</th>
+
                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($pinjambukutanahs as $buku)
+                                                @if ($buku->status == 'Selesai')
+                                                    <tr>
+
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $buku->no_su }}</td>
+                                                        <td>{{ $buku->provinsi }}</td>
+                                                        <td>{{ $buku->kabupaten }}</td>
+                                                        <td>{{ $buku->kecamatan }}</td>
+                                                        <td>{{ $buku->kelurahan }}</td>
+                                                        <td>{{ $buku->pelayanan }}</td>
+                                                        <td>{{ $buku->tipe_hak }}</td>
+                                                        <td>{{ $buku->no_hak }}</td>
+                                                        <td>{{ $buku->jenis }}</td>
+                                                        <td>{{ $buku->rak }}</td>
+                                                        <td>{{ $buku->baris }}</td>
+                                                        <td>{{ $buku->kolom }}</td>
+                                                        <td>{{ $buku->bundle }}</td>
+                                                        <td>{{ $buku->keterangan }}</td>
+                                                        <td>{{ $buku->waktu_dipinjam }}</td>
+                                                        <td>{{ $buku->waktu_disetujui }}</td>
+                                                        <td>
+                                                            @if ($buku->status == 'Selesai')
+                                                                <button class="btn btn-success">Selesai</button>
+                                                                {{-- <form id="user-form"
+                                                                    action="{{ route('listpinjam.update', $buku->id_pinjam) }}"
+                                                                    method="POST" class="ml-2">
+                                                                    <input type="hidden" name="_method" value="PUT">
+                                                                    <input type="hidden" name="_token"
+                                                                        value="{{ csrf_token() }}">
+                                                                    <button type="button" class="btn btn-primary"
+                                                                        id="confirmation">Ubah</button>
+
+                                                                </form> --}}
+                                                            @endif
 
 
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Kota Timur</td>
-                                                <td>Wongkaditi</td>
-                                                <td>11100</td>
-                                                <td>Hak Milik</td>
-                                                <td>08500</td>
-                                                <td>BT</td>
-                                                <td>Permisahan</td>
-                                                <td>untuk proses permisahan pak Debi</td>
-                                                <td>17-Mei-2024 04.40</td>
-                                                <td>
-
-                                                    <button class="btn btn-icon btn-danger"><i
-                                                            class="fa fa-trash"></i>Batalkan selesai</button>
-                                                </td>
-                                                <td>ADMIN</td>
-                                            </tr>
 
 
+                                                        </td>
+                                                        {{-- <td> --}}
+                                                        {{-- <button class="btn btn-primary" id="modal-2">Ubah Status</button> --}}
+                                                        {{-- <button type="button" class="btn btn-primary"
+                                                                data-toggle="modal" data-target="#ubahStatusModal"
+                                                                data-id="{{ $buku->id_pinjam }}">
+                                                                Ubah Status
+                                                            </button> --}}
+                                                        {{-- </td> --}}
 
-                                        </table>
-                                    </div>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -175,6 +252,7 @@
 
 @push('scripts')
     <!-- JS Libraies -->
+    <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
     <script src="{{ asset('library/cleave.js/dist/cleave.min.js') }}"></script>
     <script src="{{ asset('library/cleave.js/dist/addons/cleave-phone.us.js') }}"></script>
     <script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
@@ -186,5 +264,23 @@
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script>
+
+    <script>
+        document.getElementById('confirmation3').addEventListener('click', function() {
+            swal({
+                    title: 'Are you sure?',
+                    text: 'Apakah anda ingin mengembalikan document ini?',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willSubmit) => {
+                    if (willSubmit) {
+                        document.getElementById('user-form3').submit();
+                    }
+                });
+        });
+    </script>
+
     <!-- Page Specific JS File -->
 @endpush

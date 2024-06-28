@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Blank Page')
+@section('title', 'Kecamatan & Kelurahan')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -24,6 +24,12 @@
             </div>
 
             <div class="section-body">
+
+                <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
+                    {{-- @csrf
+                    <input type="file" name="file" required>
+                    <button type="submit">Import</button> --}}
+                </form>
                 <div class="col-12 ">
                     <div class="row">
                         <div class="col-lg-6 col-md-12 col-12 col-sm-12">

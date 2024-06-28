@@ -16,9 +16,39 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         \App\Models\User::factory()->create([
-            'name' => 'Test User',
-            'username' => 'adminatr',
+            'name' => 'admin phpt',
+            'level' => '1',
+            'username' => 'admin phpt',
             'password' => Hash::make('123456789'),
         ]);
+
+        \App\Models\User::factory()->create([
+            'name' => 'admin arsip dan warkah',
+            'level' => '2',
+            'username' => 'admin warkah',
+            'password' => Hash::make('123456789'),
+        ]);
+
+        \App\Models\User::factory()->create([
+            'name' => 'loket 1',
+            'level' => '1',
+            'username' => 'loket 1',
+            'password' => Hash::make('123456789'),
+        ]);
+
+        \App\Models\User::factory()->create([
+            'name' => 'loket 2',
+            'level' => '2',
+            'username' => 'loket 2',
+            'password' => Hash::make('123456789'),
+        ]);
+
+        \App\Models\User::factory()->create([
+            'name' => 'Admin 2',
+            'level' => '2',
+            'username' => 'admin 2',
+            'password' => Hash::make('123456789'),
+        ]);
+
     }
 }

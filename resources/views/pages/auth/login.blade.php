@@ -8,7 +8,7 @@
 @endpush
 
 @section('main')
-    <div class="card card-primary">
+    <div class="card card-deepsapphire">
         <div class="card-header">
             <h4>Login</h4>
         </div>
@@ -17,7 +17,7 @@
             <form method="POST" action="{{ url('/proses_login') }}" class="needs-validation" novalidate="">
                 @csrf
                 <div class="form-group">
-                    <label for="username">username</label>
+                    <label for="username">Username</label>
                     <input id="username" type="text"
                         class="form-control @error('username')
                     is-invalid
@@ -47,8 +47,12 @@
                         </div>
                     @enderror
                 </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="showPassword">
+                    <label class="form-check-label" for="showPassword">Show Password</label>
+                </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                    <button type="submit" class="btn btn-fuelyellow btn-lg btn-block" tabindex="4">
                         Login
                     </button>
                 </div>
@@ -65,8 +69,20 @@
 @endsection
 
 
+
 @push('scripts')
     <!-- JS Libraies -->
+
+    <script>
+        document.getElementById('showPassword').addEventListener('change', function() {
+            var passwordField = document.getElementById('password');
+            if (this.checked) {
+                passwordField.type = 'text';
+            } else {
+                passwordField.type = 'password';
+            }
+        });
+    </script>
 
     <!-- Page Specific JS File -->
 @endpush

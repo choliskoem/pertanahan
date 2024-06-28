@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Blank Page')
+@section('title', 'List Pinjam')
 
 @push('style')
     <!-- CSS Libraries -->
+
+
     <link rel="stylesheet" href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('library/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
@@ -39,10 +41,10 @@
                                 aria-controls="tabs-peminjaman" aria-selected="false">Peminjaman</a>
                         </li>
 
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link " id="tabs-4" data-toggle="pill" href="#tabs-forward" role="tab"
                                 aria-controls="tabs-forward" aria-selected="false">Forward</a>
-                        </li>
+                        </li> --}}
 
                         <li class="nav-item">
                             <a class="nav-link " id="tabs-5" data-toggle="pill" href="#tabs-pengembalian" role="tab"
@@ -62,100 +64,95 @@
 
                             <div class="tab-content">
 
-                                <div class="tab-pane fade  show active" id="tabs-pengajuan" role="tabpanel" aria-labelledby="tabs-1">
+                                <div class="tab-pane fade  show active" id="tabs-pengajuan" role="tabpanel"
+                                    aria-labelledby="tabs-1">
                                     <h5>List Pengajuan</h5>
                                     <hr>
-                                    <div class="float-right">
-                                        <form method="GET" action="">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Search"
-                                                    name="name">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                                </div>
-                                            </div>
+
+
+                                    {{-- <div class="float-right">
+                                        <form action="{{ route('export.laporan') }}" method="GET">
+                                            <button type="submit">Export to Excel</button>
                                         </form>
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="clearfix mb-3"></div>
 
-                                    <div class="table-responsive">
-                                        <table class="table-striped table">
-                                            <tr style="background-color: gray; color: white ">
+
+                                    <table class="table " id="table-list">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
                                                 <th>No Berkas</th>
+                                                <th>Provinsi</th>
+                                                <TH>Kabupaten</TH>
                                                 <th>Kecamatan</th>
                                                 <th>Kelurahan</th>
                                                 <th>Pelayanan</th>
                                                 <th>Tipe Hak</th>
                                                 <th>No Hak</th>
                                                 <th>Jenis Arsip</th>
-
+                                                <th>Rak</th>
+                                                <th>Baris</th>
+                                                <th>Kolom</th>
+                                                <th>Bundle</th>
                                                 <th>Keterangan</th>
+                                                <th>Waktu Pengajuan</th>
+                                                <th>Waktu Disetujui</th>
 
                                             </tr>
-                                            <tr style="background-color: rgb(154, 154, 255); color:white">
-                                                <td colspan="2">
-                                                    Admin(Admin)
-                                                </td>
-                                                <td colspan="2">
-                                                    16-Mei-2024 04.04
-                                                </td>
-                                                <td>0 Hari</td>
-                                                <td> <label class="custom-switch mt-6 ">
-                                                        <input type="checkbox" name="custom-switch-checkbox"
-                                                            class="custom-switch-input">
-                                                        <span class="custom-switch-indicator"></span>
-                                                        <span class="custom-switch-description">Urgent</span>
-                                                    </label>
-                                                </td>
-                                                <td>
-                                                    No Tiket: 19331315451
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($pinjambukutanahs as $buku)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $buku->no_su }}</td>
+                                                    <td>{{ $buku->provinsi }}</td>
+                                                    <td>{{ $buku->kabupaten }}</td>
+                                                    <td>{{ $buku->kecamatan }}</td>
+                                                    <td>{{ $buku->kelurahan }}</td>
+                                                    <td>{{ $buku->pelayanan }}</td>
+                                                    <td>{{ $buku->tipe_hak }}</td>
+                                                    <td>{{ $buku->no_hak }}</td>
+                                                    <td>{{ $buku->jenis }}</td>
 
-                                                </td>
+                                                    <td>{{ $buku->rak }}</td>
+                                                    <td>{{ $buku->baris }}</td>
+                                                    <td>{{ $buku->kolom }}</td>
+                                                    <td>{{ $buku->bundle }}</td>
 
-                                                <td>
-                                                    <button class="btn btn-icon btn-secondary"><i
-                                                            class="far fa-edit"></i></button>
-                                                    <button class="btn btn-icon btn-secondary"><i
-                                                            class="fa fa-print"></i>Print</button>
-                                                </td>
+                                                    <td>{{ $buku->keterangan }}</td>
+                                                    <td>{{ $buku->waktu_dipinjam }}</td>
+                                                    <td>{{ $buku->waktu_disetujui }}</td>
+                                                    {{-- <td>
 
-                                            </tr>
-
-                                            <tr>
-                                                <td>11100</td>
-                                                <td>Kota Timur</td>
-                                                <td>Wongkaditi</td>
-                                                <td>Permisahan</td>
-                                                <td>Hak Milik</td>
-                                                <td>08500</td>
-                                                <td>BT</td>
-
-                                                <td>untuk proses permisahan pak Debi</td>
-
-                                            </tr>
-
-
-
-                                        </table>
-                                    </div>
-
-
-
-
-
+                                                            @if ($buku->status == 'Pending')
+                                                                <form
+                                                                    action="{{ route('peminjaman.destroy', $buku->id_pinjam) }}"
+                                                                    method="POST" class="ml-2">
+                                                                    <input type="hidden" name="_method" value="DELETE">
+                                                                    <input type="hidden" name="_token"
+                                                                        value="{{ csrf_token() }}">
+                                                                    <button
+                                                                        class="btn btn-sm btn-danger btn-icon confirm-delete">
+                                                                        <i class="fas fa-times"></i>
+                                                                        Delete
+                                                                    </button>
+                                                                </form>
+                                                            @endif
+                                                        </td> --}}
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
 
 
                                 </div>
-
-
-
 
                                 <div class="tab-pane fade  " id="tabs-dikirim" role="tabpanel" aria-labelledby="tabs-2">
 
                                     <h5>Dikirim</h5>
                                     <hr>
-                                    <div class="float-right">
+                                    {{-- <div class="float-right">
                                         <form method="GET" action="">
                                             <div class="input-group">
                                                 <input type="text" class="form-control" placeholder="Search"
@@ -165,129 +162,190 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="clearfix mb-3"></div>
 
-                                    <div class="table-responsive">
-                                        <table class="table-striped table">
-                                            <tr>
+                                    <table class="table " id="table-dikirim">
 
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
                                                 <th>No Berkas</th>
-                                                <th>Seksi</th>
+                                                <th>Provinsi</th>
+                                                <TH>Kabupaten</TH>
                                                 <th>Kecamatan</th>
                                                 <th>Kelurahan</th>
                                                 <th>Pelayanan</th>
                                                 <th>Tipe Hak</th>
                                                 <th>No Hak</th>
                                                 <th>Jenis Arsip</th>
+                                                <th>Rak</th>
+                                                <th>Baris</th>
+                                                <th>Kolom</th>
+                                                <th>Bundle</th>
                                                 <th>Keterangan</th>
-                                                <th>Waktu</th>
+                                                <th>Waktu Pengajuan</th>
+                                                <th>Waktu Disetujui</th>
                                                 <th> Status</th>
-                                                <th>History</th>
-                                                <th>User</th>
+
                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($pinjambukutanahs as $buku)
+                                                @if ($buku->status == 'Arsip Dikirim')
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $buku->no_su }}</td>
+                                                        <td>{{ $buku->provinsi }}</td>
+                                                        <td>{{ $buku->kabupaten }}</td>
+                                                        <td>{{ $buku->kecamatan }}</td>
+                                                        <td>{{ $buku->kelurahan }}</td>
+                                                        <td>{{ $buku->pelayanan }}</td>
+                                                        <td>{{ $buku->tipe_hak }}</td>
+                                                        <td>{{ $buku->no_hak }}</td>
+                                                        <td>{{ $buku->jenis }}</td>
+                                                        <td>{{ $buku->rak }}</td>
+                                                        <td>{{ $buku->baris }}</td>
+                                                        <td>{{ $buku->kolom }}</td>
+                                                        <td>{{ $buku->bundle }}</td>
+                                                        <td>{{ $buku->keterangan }}</td>
+                                                        <td>{{ $buku->waktu_dipinjam }}</td>
+                                                        <td>{{ $buku->waktu_disetujui }}</td>
+                                                        <td>
+                                                            @if ($buku->status == 'Arsip Dikirim')
+                                                                <button class="btn btn-success">Telah Disetujui</button>
+                                                                {{-- <form id="user-form"
+                                                                        action="{{ route('listpinjam.update', $buku->id_pinjam) }}"
+                                                                        method="POST" class="ml-2">
+                                                                        <input type="hidden" name="_method" value="PUT">
+                                                                        <input type="hidden" name="_token"
+                                                                            value="{{ csrf_token() }}">
+                                                                        <button type="button" class="btn btn-primary"
+                                                                            id="confirmation">Ubah</button>
+
+                                                                    </form> --}}
+                                                            @endif
+                                                        </td>
 
 
-                                            <tr>
 
-                                                <td>11100</td>
-                                                <td>Admin</td>
-                                                <td>Kota Timur</td>
-                                                <td>Wongkaditi</td>
-                                                <td>Permisahan</td>
-                                                <td>Hak Milik</td>
-                                                <td>08500</td>
-                                                <td>BT</td>
-                                                <td>untuk proses permisahan pak Debi</td>
-                                                <td>17-Mei-2024 04.40</td>
-                                                <td>Arsip Dikirim</td>
-                                                <td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                        </tbody>
+                                    </table>
 
-                                                    <button class="btn btn-icon btn-primary"><i
-                                                            class="fa fa-search"></i></button>
-                                                </td>
-                                                <td>Admin</td>
-                                            </tr>
-
-
-
-                                        </table>
-                                    </div>
 
                                 </div>
 
                                 <div class="tab-pane fade  " id="tabs-peminjaman" role="tabpanel" aria-labelledby="tabs-3">
 
-                                    <h5>Dikirim</h5>
+                                    <h5>Peminjaman</h5>
                                     <hr>
-                                    <div class="float-right">
-                                        <form method="GET" action="">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Search"
-                                                    name="name">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
 
                                     <div class="clearfix mb-3"></div>
 
-                                    <div class="table-responsive">
-                                        <table class="table-striped table">
-                                            <tr>
 
+
+                                    <table class="table " id="table-pinjam2">
+
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
                                                 <th>No Berkas</th>
-                                                <th>Seksi</th>
+                                                <th>Provinsi</th>
+                                                <TH>Kabupaten</TH>
                                                 <th>Kecamatan</th>
                                                 <th>Kelurahan</th>
                                                 <th>Pelayanan</th>
                                                 <th>Tipe Hak</th>
                                                 <th>No Hak</th>
                                                 <th>Jenis Arsip</th>
+                                                <th>Rak</th>
+                                                <th>Baris</th>
+                                                <th>Kolom</th>
+                                                <th>Bundle</th>
+                                                <th>Status</th>
                                                 <th>Keterangan</th>
-                                                <th>Waktu</th>
-                                                <th> Status</th>
-                                                <th>History</th>
-                                                <th>User</th>
+                                                <th>Waktu Dipinjam</th>
+                                                <th>Waktu Disetujui</th>
+                                                <th>Ubah Status</th>
+
                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($pinjambukutanahs as $buku)
+                                                @if ($buku->status == 'Peminjaman')
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $buku->no_su }}</td>
+                                                        <td>{{ $buku->provinsi }}</td>
+                                                        <td>{{ $buku->kabupaten }}</td>
+                                                        <td>{{ $buku->kecamatan }}</td>
+                                                        <td>{{ $buku->kelurahan }}</td>
+                                                        <td>{{ $buku->pelayanan }}</td>
+                                                        <td>{{ $buku->tipe_hak }}</td>
+                                                        <td>{{ $buku->no_hak }}</td>
+                                                        <td>{{ $buku->jenis }}</td>
+
+                                                        <td>{{ $buku->rak }}</td>
+                                                        <td>{{ $buku->baris }}</td>
+                                                        <td>{{ $buku->kolom }}</td>
+                                                        <td>{{ $buku->bundle }}</td>
+                                                        <td>{{ $buku->status }}</td>
+                                                        <td>{{ $buku->keterangan }}</td>
+                                                        <td>{{ $buku->waktu_dipinjam }}</td>
+                                                        <td>{{ $buku->waktu_disetujui }}</td>
+                                                        <td>
+                                                            @if ($buku->status == 'Peminjaman')
+                                                                <form id="user-form"
+                                                                    action="{{ route('listpinjam.update', $buku->id_pinjam) }}"
+                                                                    method="POST" class="ml-2">
+                                                                    <input type="hidden" name="_method" value="PUT">
+                                                                    <input type="hidden" name="_token"
+                                                                        value="{{ csrf_token() }}">
+                                                                    <button type="button" class="btn btn-primary"
+                                                                        id="confirmation">Ubah</button>
+
+                                                                </form>
+                                                            @endif
 
 
-                                            <tr>
 
-                                                <td>11100</td>
-                                                <td>Admin</td>
-                                                <td>Kota Timur</td>
-                                                <td>Wongkaditi</td>
-                                                <td>Permisahan</td>
-                                                <td>Hak Milik</td>
-                                                <td>08500</td>
-                                                <td>BT</td>
-                                                <td>untuk proses permisahan pak Debi</td>
-                                                <td>17-Mei-2024 04.40</td>
-                                                <td>Peminjaman</td>
-                                                <td>
 
-                                                    <button class="btn btn-icon btn-primary"><i
-                                                            class="fa fa-search"></i></button>
-                                                </td>
-                                                <td>Admin</td>
-                                            </tr>
+                                                        </td>
+                                                        {{-- <td> --}}
+                                                        {{-- <button class="btn btn-primary" id="modal-2">Ubah Status</button> --}}
+                                                        {{-- <button type="button" class="btn btn-primary"
+                                                                data-toggle="modal" data-target="#ubahStatusModal"
+                                                                data-id="{{ $buku->id_pinjam }}">
+                                                                Ubah Status
+                                                            </button> --}}
+                                                        {{-- </td> --}}
+
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                        </tbody>
+                                    </table>
 
 
 
-                                        </table>
-                                    </div>
+
+
+
+
+
 
                                 </div>
 
-                                <div class="tab-pane fade  " id="tabs-pengembalian" role="tabpanel" aria-labelledby="tabs-5">
+                                <div class="tab-pane fade  " id="tabs-pengembalian" role="tabpanel"
+                                    aria-labelledby="tabs-5">
 
                                     <h5>Pengembalian</h5>
                                     <hr>
-                                    <div class="float-right">
+                                    {{-- <div class="float-right">
                                         <form method="GET" action="">
                                             <div class="input-group">
                                                 <input type="text" class="form-control" placeholder="Search"
@@ -297,56 +355,94 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="clearfix mb-3"></div>
 
-                                    <div class="table-responsive">
-                                        <table class="table-striped table">
-                                            <tr>
+                                    <table class="table " id="table-pengembalian2">
 
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
                                                 <th>No Berkas</th>
-                                                <th>Seksi</th>
+                                                <th>Provinsi</th>
+                                                <TH>Kabupaten</TH>
                                                 <th>Kecamatan</th>
                                                 <th>Kelurahan</th>
                                                 <th>Pelayanan</th>
                                                 <th>Tipe Hak</th>
                                                 <th>No Hak</th>
                                                 <th>Jenis Arsip</th>
+                                                <th>Rak</th>
+                                                <th>Baris</th>
+                                                <th>Kolom</th>
+                                                <th>Bundle</th>
+                                                <th>Status</th>
                                                 <th>Keterangan</th>
-                                                <th>Waktu</th>
-                                                <th> Status</th>
-                                                <th>History</th>
-                                                <th>User</th>
+                                                <th>Waktu Dipinjam</th>
+                                                <th>Waktu Disetujui</th>
+                                                <th>Ubah Status</th>
+
                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($pinjambukutanahs as $buku)
+                                                @if ($buku->status == 'Dikembalikan')
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $buku->no_su }}</td>
+                                                        <td>{{ $buku->provinsi }}</td>
+                                                        <td>{{ $buku->kabupaten }}</td>
+                                                        <td>{{ $buku->kecamatan }}</td>
+                                                        <td>{{ $buku->kelurahan }}</td>
+                                                        <td>{{ $buku->pelayanan }}</td>
+                                                        <td>{{ $buku->tipe_hak }}</td>
+                                                        <td>{{ $buku->no_hak }}</td>
+                                                        <td>{{ $buku->jenis }}</td>
+
+                                                        <td>{{ $buku->rak }}</td>
+                                                        <td>{{ $buku->baris }}</td>
+                                                        <td>{{ $buku->kolom }}</td>
+                                                        <td>{{ $buku->bundle }}</td>
+                                                        <td>{{ $buku->status }}</td>
+                                                        <td>{{ $buku->keterangan }}</td>
+                                                        <td>{{ $buku->waktu_dipinjam }}</td>
+                                                        <td>{{ $buku->waktu_disetujui }}</td>
+                                                        <td>
+                                                            @if ($buku->status == 'Dikembalikan')
+                                                                {{-- <button class="btn btn-success">Telah Disetujui</button> --}}
+                                                                <form id="user-form2"
+                                                                    action="{{ route('listpinjam.update', $buku->id_pinjam) }}"
+                                                                    method="POST" class="ml-2">
+                                                                    <input type="hidden" name="_method" value="PUT">
+                                                                    <input type="hidden" name="_token"
+                                                                        value="{{ csrf_token() }}">
+                                                                    <button type="button" class="btn btn-primary"
+                                                                        id="confirmation2">Ubah</button>
+
+                                                                </form>
+                                                            @endif
+                                                        </td>
 
 
-                                            <tr>
-
-                                                <td>11100</td>
-                                                <td>Admin</td>
-                                                <td>Kota Timur</td>
-                                                <td>Wongkaditi</td>
-                                                <td>Permisahan</td>
-                                                <td>Hak Milik</td>
-                                                <td>08500</td>
-                                                <td>BT</td>
-                                                <td>untuk proses permisahan pak Debi</td>
-                                                <td>17-Mei-2024 04.40</td>
-                                                <td>  <button class="btn btn-icon btn-primary"><i
-                                                    class="fa fa-check"></i>Pengembalian</button></td>
-                                                <td>
-
-                                                    <button class="btn btn-icon btn-primary"><i
-                                                            class="fa fa-search"></i></button>
-                                                </td>
-                                                <td>Admin</td>
-                                            </tr>
 
 
 
-                                        </table>
-                                    </div>
+
+                                                        {{-- <td> --}}
+                                                        {{-- <button class="btn btn-primary" id="modal-2">Ubah Status</button> --}}
+                                                        {{-- <button type="button" class="btn btn-primary"
+                                                                data-toggle="modal" data-target="#ubahStatusModal"
+                                                                data-id="{{ $buku->id_pinjam }}">
+                                                                Ubah Status
+                                                            </button> --}}
+                                                        {{-- </td> --}}
+
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                        </tbody>
+                                    </table>
 
                                 </div>
 
@@ -354,7 +450,7 @@
 
                                     <h5>Selesai</h5>
                                     <hr>
-                                    <div class="float-right">
+                                    {{-- <div class="float-right">
                                         <form method="GET" action="">
                                             <div class="input-group">
                                                 <input type="text" class="form-control" placeholder="Search"
@@ -364,57 +460,89 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="clearfix mb-3"></div>
 
-                                    <div class="table-responsive">
-                                        <table class="table-striped table">
-                                            <tr>
+                                    <table class="table " id="table-selesai">
 
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
                                                 <th>No Berkas</th>
-                                                <th>Seksi</th>
+                                                <th>Provinsi</th>
+                                                <TH>Kabupaten</TH>
                                                 <th>Kecamatan</th>
                                                 <th>Kelurahan</th>
                                                 <th>Pelayanan</th>
                                                 <th>Tipe Hak</th>
                                                 <th>No Hak</th>
                                                 <th>Jenis Arsip</th>
+                                                <th>Rak</th>
+                                                <th>Baris</th>
+                                                <th>Kolom</th>
+                                                <th>Bundle</th>
                                                 <th>Keterangan</th>
-                                                <th>History</th>
-                                                <th>Waktu Peminjaman</th>
-                                                <th>Waktu Selesai</th>
-                                                <th>Rusak/Hilang</th>
+                                                <th>Waktu Pengajuan</th>
+                                                <th>Waktu Disetujui</th>
+                                                <th> Status</th>
+
                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($pinjambukutanahs as $buku)
+                                                @if ($buku->status == 'Selesai')
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $buku->no_su }}</td>
+                                                        <td>{{ $buku->provinsi }}</td>
+                                                        <td>{{ $buku->kabupaten }}</td>
+                                                        <td>{{ $buku->kecamatan }}</td>
+                                                        <td>{{ $buku->kelurahan }}</td>
+                                                        <td>{{ $buku->pelayanan }}</td>
+                                                        <td>{{ $buku->tipe_hak }}</td>
+                                                        <td>{{ $buku->no_hak }}</td>
+                                                        <td>{{ $buku->jenis }}</td>
+                                                        <td>{{ $buku->rak }}</td>
+                                                        <td>{{ $buku->baris }}</td>
+                                                        <td>{{ $buku->kolom }}</td>
+                                                        <td>{{ $buku->bundle }}</td>
+                                                        <td>{{ $buku->keterangan }}</td>
+                                                        <td>{{ $buku->waktu_dipinjam }}</td>
+                                                        <td>{{ $buku->waktu_disetujui }}</td>
+                                                        <td>
+                                                            @if ($buku->status == 'Selesai')
+                                                                <button class="btn btn-success">Selesai Di Pinjam</button>
+                                                                {{-- <form id="user-form"
+                                                                    action="{{ route('listpinjam.update', $buku->id_pinjam) }}"
+                                                                    method="POST" class="ml-2">
+                                                                    <input type="hidden" name="_method" value="PUT">
+                                                                    <input type="hidden" name="_token"
+                                                                        value="{{ csrf_token() }}">
+                                                                    <button type="button" class="btn btn-primary"
+                                                                        id="confirmation">Ubah</button>
+
+                                                                </form> --}}
+                                                            @endif
 
 
-                                            <tr>
-
-                                                <td>11100</td>
-                                                <td>Admin</td>
-                                                <td>Kota Timur</td>
-                                                <td>Wongkaditi</td>
-                                                <td>Permisahan</td>
-                                                <td>Hak Milik</td>
-                                                <td>08500</td>
-                                                <td>BT</td>
-                                                <td>untuk proses permisahan pak Debi</td>
-                                                <td>
-
-                                                    <button class="btn btn-icon btn-primary"><i
-                                                            class="fa fa-search"></i></button>
-                                                </td>
-                                                <td>17-Mei-2024 04.40</td>
-                                                <td>19-Mei-2024 04.40</td>
 
 
-                                                <td></td>
-                                            </tr>
+                                                        </td>
+                                                        {{-- <td> --}}
+                                                        {{-- <button class="btn btn-primary" id="modal-2">Ubah Status</button> --}}
+                                                        {{-- <button type="button" class="btn btn-primary"
+                                                                data-toggle="modal" data-target="#ubahStatusModal"
+                                                                data-id="{{ $buku->id_pinjam }}">
+                                                                Ubah Status
+                                                            </button> --}}
+                                                        {{-- </td> --}}
 
-
-
-                                        </table>
-                                    </div>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                        </tbody>
+                                    </table>
 
                                 </div>
                             </div>
@@ -429,6 +557,7 @@
 
 @push('scripts')
     <!-- JS Libraies -->
+    <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
     <script src="{{ asset('library/cleave.js/dist/cleave.min.js') }}"></script>
     <script src="{{ asset('library/cleave.js/dist/addons/cleave-phone.us.js') }}"></script>
     <script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
@@ -440,5 +569,43 @@
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script>
+    <script src="{{ asset('js/page/bootstrap-modal.js') }}"></script>
+
+
+
+    <script>
+        document.getElementById('confirmation').addEventListener('click', function() {
+            swal({
+                    title: 'Are you sure?',
+                    text: 'Apakah anda menyetujui document ini?',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willSubmit) => {
+                    if (willSubmit) {
+                        document.getElementById('user-form').submit();
+                    }
+                });
+        });
+    </script>
+
+<script>
+    document.getElementById('confirmation2').addEventListener('click', function() {
+        swal({
+                title: 'Are you sure?',
+                text: 'Apakah anda menyetujui document ini?',
+                icon: 'warning',
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willSubmit) => {
+                if (willSubmit) {
+                    document.getElementById('user-form2').submit();
+                }
+            });
+    });
+</script>
+
     <!-- Page Specific JS File -->
 @endpush
