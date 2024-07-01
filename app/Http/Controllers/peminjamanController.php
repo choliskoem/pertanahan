@@ -77,7 +77,7 @@ class peminjamanController extends Controller
 
         $data = $request->all();
 
-        $bt  = new \App\Models\pinjambukutanah();
+        // $bt  = new \App\Models\pinjambukutanah();
 
         $waktuSekarang = Carbon::now('Asia/Jakarta');
         $waktuDitambahSatuJam = $waktuSekarang->addHours(1);
