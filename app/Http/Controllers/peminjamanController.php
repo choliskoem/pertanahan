@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\kecamatanmodel;
-use App\Models\pinjambukutanah;
+use App\Models\PinjamBukuTanah;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -175,7 +175,7 @@ class peminjamanController extends Controller
         $searchTerm = $request->input('search');
 
         // Perform your search logic here
-        $buku = pinjambukutanah::where('provinsi', 'like', '%' . $searchTerm . '%')
+        $buku = PinjamBukuTanah::where('provinsi', 'like', '%' . $searchTerm . '%')
             ->orWhere('kabupaten', 'like', '%' . $searchTerm . '%')
             ->orWhere('kecamatan', 'like', '%' . $searchTerm . '%')
             ->orWhere('kelurahan', 'like', '%' . $searchTerm . '%')
@@ -199,7 +199,7 @@ class peminjamanController extends Controller
     public function destroy($id)
     {
 
-        $option = \App\Models\pinjambukutanah::findOrFail($id);
+        $option = \App\Models\PinjamBukuTanah::findOrFail($id);
         $option->delete();
         return redirect()->route('peminjaman.index')->with('success', 'Option Deleted Successfully');
     }
@@ -207,7 +207,7 @@ class peminjamanController extends Controller
     public function show($id)
     {
         // Retrieve the peminjaman record by its ID
-        $peminjaman = pinjambukutanah::findOrFail($id);
+        $peminjaman = PinjamBukuTanah::findOrFail($id);
 
         // Return a view to display the resource details
         return view('peminjaman.show', ['peminjaman' => $peminjaman]);

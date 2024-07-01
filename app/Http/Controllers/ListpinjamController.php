@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\LaporanExport;
-use App\Models\pinjambukutanah;
+use App\Models\PinjamBukuTanah;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -39,7 +39,7 @@ class ListpinjamController extends Controller
         )
             ->leftJoin('kelurahan', 'kelurahan.id_kelurahan', '=', 'pinjambukutanahs.id_kelurahan')
             ->leftJoin('kecamatan', 'kecamatan.id_kecamatan', '=', 'kelurahan.id_kecamatan')
-            ->get();    
+            ->get();
 
 
         return view('pages.listpinjam.index', ['pinjambukutanahs' => $buku]);

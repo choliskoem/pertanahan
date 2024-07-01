@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class pinjambukutanah extends Model
+class PinjamBukuTanah extends Model
 {
     use HasFactory;
 
+    protected $table = 'pinjambukutanahs';
     protected $keyType = 'string';
     protected $primaryKey = 'id_pinjam';
     public $incrementing = false;

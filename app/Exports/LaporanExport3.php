@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\pinjambukutanah;
+use App\Models\PinjamBukuTanah;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -20,7 +20,7 @@ class LaporanExport3 implements FromCollection, WithHeadings, WithMapping, WithS
     public function __construct()
     {
         //
-        $this->data =   pinjambukutanah::select(
+        $this->data =   PinjamBukuTanah::select(
             'pinjambukutanahs.id_pinjam',
             'pinjambukutanahs.provinsi',
             'pinjambukutanahs.kabupaten',
