@@ -21,7 +21,7 @@
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Peminjaman</span></a>
                 <ul class="dropdown-menu">
-                    <li>
+                    {{-- <li>
                         <a class="nav-link" href="{{ route('listpinjam.index') }}">List Peminjaman</a>
                     </li>
                     <li>
@@ -29,8 +29,8 @@
                     </li>
                     <li>
                         <a class="nav-link" href="{{ route('pengembalian.index') }}">Pengembalian</a>
-                    </li>
-                    {{-- @if (auth()->user()->level == '2')
+                    </li> --}}
+                    @if (auth()->user()->level == '2')
                         <li>
                             <a class="nav-link" href="{{ route('listpinjam.index') }}">List Peminjaman</a>
                         </li>
@@ -41,7 +41,7 @@
                         <li>
                             <a class="nav-link" href="{{ route('pengembalian.index') }}">Pengembalian</a>
                         </li>
-                    @endif --}}
+                    @endif
 
 
 
