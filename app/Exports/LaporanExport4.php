@@ -102,7 +102,7 @@ class LaporanExport4 implements FromCollection, WithHeadings, WithMapping, WithS
         $lastRow = $this->data->count() + 1; // +1 for the header row
 
         // Apply styles dynamically
-        $sheet->getStyle("A1:P1")->applyFromArray([
+        $sheet->getStyle("A1:Q1")->applyFromArray([
             'font' => ['bold' => true],
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
@@ -115,7 +115,7 @@ class LaporanExport4 implements FromCollection, WithHeadings, WithMapping, WithS
             ],
         ]);
 
-        $sheet->getStyle("A1:P{$lastRow}")->applyFromArray([
+        $sheet->getStyle("A1:Q{$lastRow}")->applyFromArray([
             'borders' => [
                 'allBorders' => [
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
