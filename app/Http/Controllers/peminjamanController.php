@@ -6,6 +6,7 @@ use App\Models\kecamatanmodel;
 use App\Models\PinjamBukuTanah;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class peminjamanController extends Controller
@@ -86,8 +87,9 @@ class peminjamanController extends Controller
         if ($request->input('exampleRadios') === 'BT') {
             DB::table('pinjambukutanahs')->insert([
                 'id_pinjam' => uuid_create(),
-                'no_hak' => $request->nomor_hak,
-                'no_su' => $request->surat_ukur,
+                'no_hak' => isset($request->nomor_hak) ? $request->nomor_hak : '-', // Jika kosong, simpan string kosong
+                'no_su' => isset($request->surat_ukur) ? $request->surat_ukur : '-', // Jika kosong, simpan string kosong
+
                 'tipe_hak' => $request->tipe_hak,
                 'provinsi' => "Gorontalo",
                 'kabupaten' => "Kota Gorontalo",
@@ -102,15 +104,16 @@ class peminjamanController extends Controller
                 'jenis' => "BT",
                 'keterangan' => $request->keterangan,
                 'waktu_dipinjam' => $waktuDitambahSatuJam,
+                'name' => Auth::user()->name
                 // 'waktu_disetujui' => '0000-00-00 00:00:00'
 
             ]);
             return redirect()->route('peminjaman.index')->with('success', 'Data Berhasil Dikirim');
         } elseif ($request->input('exampleRadios') === 'SU') {
-            DB::table('pinjambukutanah')->insert([
+            DB::table('pinjambukutanahs')->insert([
                 'id_pinjam' => uuid_create(),
-                'no_hak' => $request->nomor_hak,
-                'no_su' => $request->surat_ukur,
+                'no_hak' => isset($request->nomor_hak) ? $request->nomor_hak : '-', // Jika kosong, simpan string kosong
+                'no_su' => isset($request->surat_ukur) ? $request->surat_ukur : '-', // Jika kosong, simpan string kosong
                 'tipe_hak' => $request->tipe_hak,
                 'provinsi' => "Gorontalo",
                 'kabupaten' => "Kota Gorontalo",
@@ -125,16 +128,18 @@ class peminjamanController extends Controller
                 'jenis' => "SU",
                 'keterangan' => $request->keterangan,
                 'waktu_dipinjam' => $waktuDitambahSatuJam,
+                'name' => Auth::user()->name
                 // 'waktu_disetujui' => '0000-00-00 00:00:00',
 
             ]);
 
             return redirect()->route('peminjaman.index')->with('success', 'Data Berhasil Dikirim');
         } elseif ($request->input('exampleRadios') === 'WARKAH') {
-            DB::table('pinjambukutanah')->insert([
+            DB::table('pinjambukutanahs')->insert([
                 'id_pinjam' => uuid_create(),
-                'no_hak' => $request->nomor_hak,
-                'no_su' => $request->surat_ukur,
+                'no_hak' => isset($request->nomor_hak) ? $request->nomor_hak : '-', // Jika kosong, simpan string kosong
+                'no_su' => isset($request->surat_ukur) ? $request->surat_ukur : '-', // Jika kosong, simpan string kosong
+
                 'tipe_hak' => $request->tipe_hak,
                 'provinsi' => "Gorontalo",
                 'kabupaten' => "Kota Gorontalo",
@@ -149,6 +154,7 @@ class peminjamanController extends Controller
                 'jenis' => "WARKAH",
                 'keterangan' => $request->keterangan,
                 'waktu_dipinjam' => $waktuDitambahSatuJam,
+                'name' => Auth::user()->name
                 // 'waktu_disetujui' => '0000-00-00 00:00:00'
 
             ]);

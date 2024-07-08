@@ -38,14 +38,14 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\User::factory()->create([
             'name' => 'loket 2',
-            'level' => '2',
+            'level' => '1',
             'username' => 'loket 2',
             'password' => Hash::make('123456789'),
         ]);
 
         \App\Models\User::factory()->create([
             'name' => 'Admin 2',
-            'level' => '2',
+            'level' => '1',
             'username' => 'admin 2',
             'password' => Hash::make('123456789'),
         ]);

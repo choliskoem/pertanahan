@@ -35,6 +35,7 @@ class ListpinjamController extends Controller
             'pinjambukutanahs.keterangan',
             'pinjambukutanahs.waktu_dipinjam',
             'pinjambukutanahs.waktu_disetujui',
+            'pinjambukutanahs.name',
             'pinjambukutanahs.status'
         )
             ->leftJoin('kelurahan', 'kelurahan.id_kelurahan', '=', 'pinjambukutanahs.id_kelurahan')

@@ -45,6 +45,7 @@ class PinjamBukuTanah extends Model
         'status',
         'jenis',
         'keterangan',
+        'name'
 
     ];
 }

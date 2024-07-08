@@ -109,36 +109,22 @@
                                                         <div class="col-md-9">
                                                             <select name="pelayanan" class="form-control select2">
                                                                 <option value="Pengecekan">Pengecekan</option>
-                                                                <option value="Roya">Roya</option>
-                                                                <option value="Pemisahan">Pemisahan</option>
-                                                                <option value="Lain-lain">Lain-lain</option>
-                                                                <option value="Balik nam">Balik nam</option>
-                                                                <option value="Ht">Ht</option>
                                                                 <option value="SKPT">SKPT</option>
+                                                                <option value="Roya">Roya</option>
+                                                                <option value="Peralihan Hak">Peralihan Hak</option>
+                                                                <option value="Hak Tanggungan">Hak Tanggungan</option>
+                                                                <option value="Perubahan Hak">Perubahan Hak</option>
+                                                                <option value="Pemisahan / Pemecahan / Penggabungan">
+                                                                    Pemisahan / Pemecahan / Penggabungan</option>
+                                                                <option value="Blokir / Sita"> Blokir / Sita</option>
+                                                                <option value="Sertifikat Pengganti">Sertifikat Pengganti
+                                                                </option>
+                                                                <option value="Validasi BPHTB">Validasi BPHTB</option>
+                                                                <option value="Ganti Kelurahan / Pindah Kelurahan">Ganti Kelurahan / Pindah Kelurahan</option>
+                                                                <option value="Sengketa / Pengaduan">Sengketa / Pengaduan</option>
                                                                 <option value="Hapus Hak">Hapus Hak</option>
-                                                                <option value="Perkara">Perkara</option>
-                                                                <option value="Sengketa">Sengketa</option>
-                                                                <option value="pengaduan">Pengaduan</option>
-                                                                <option value="permintaan instansi pemerintah">Permintaan
-                                                                    Instansi Pemerintah</option>
-                                                                <option value="ganti desa">Ganti Desa</option>
-                                                                <option value="ganti blanco">Ganti Blanco</option>
-                                                                <option value="pengecekan">Pengecekan</option>
-                                                                <option value="pemekaran">Pemekaran</option>
-                                                                <option value="pengukuran ulang">Pengukuran Ulang</option>
-                                                                <option value="plotting">Plotting</option>
-                                                                <option value="pelepasan sebagian hak">Pelepasan Sebagian
-                                                                    Hak</option>
-                                                                <option value="validasi">Validasi</option>
-                                                                <option value="sertifikan hilang">Sertifikat Hilang
-                                                                </option>
-                                                                <option value="sertifikan pengganti">Sertifikat Pengganti
-                                                                </option>
-                                                                <option value="penyerahan">Penyerahan</option>
-                                                                <option
-                                                                    value="penyelenggaraan kebijakan penggunaan dan pemanfaatan tanah">
-                                                                    Penyelenggaraan Kebijakan Penggunaan dan Pemanfaatan
-                                                                    Tanah</option>
+                                                                <option value="Lain-lain">Lain-lain</option>
+                                                                
                                                             </select>
                                                         </div>
                                                     </div>
@@ -507,7 +493,7 @@
                 position: 'topRight'
             });
         @endif
-    </script>   
+    </script>
 
 
 

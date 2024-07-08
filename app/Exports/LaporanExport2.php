@@ -37,6 +37,7 @@ class LaporanExport2 implements FromCollection, WithHeadings, WithMapping, WithS
             'pinjambukutanahs.bundle',
             'pinjambukutanahs.keterangan',
             'pinjambukutanahs.waktu_dipinjam',
+            'pinjambukutanahs.waktu_disetujui',
             'pinjambukutanahs.status'
         )
             ->leftJoin('kelurahan', 'kelurahan.id_kelurahan', '=', 'pinjambukutanahs.id_kelurahan')
@@ -68,6 +69,7 @@ class LaporanExport2 implements FromCollection, WithHeadings, WithMapping, WithS
             'Bundle',
             'Keterangan',
             'Waktu Dipinjam',
+            'Waktu Disetujui',
             'Status',
         ];
     }
@@ -90,6 +92,7 @@ class LaporanExport2 implements FromCollection, WithHeadings, WithMapping, WithS
             $laporan->bundle,
             $laporan->keterangan,
             $laporan->waktu_dipinjam,
+            $laporan->waktu_disetujui,
             $laporan->status,
         ];
     }

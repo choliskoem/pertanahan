@@ -98,6 +98,7 @@
                                                 <th>Keterangan</th>
                                                 <th>Waktu Pengajuan</th>
                                                 <th>Waktu Disetujui</th>
+                                                <th>Nama</th>
 
                                             </tr>
                                         </thead>
@@ -123,6 +124,7 @@
                                                     <td>{{ $buku->keterangan }}</td>
                                                     <td>{{ $buku->waktu_dipinjam }}</td>
                                                     <td>{{ $buku->waktu_disetujui }}</td>
+                                                    <td>{{ $buku->name }}</td>
                                                     {{-- <td>
 
                                                             @if ($buku->status == 'Pending')
@@ -171,6 +173,7 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
+                                                <th>Name</th>
                                                 <th>No Berkas</th>
                                                 <th>Provinsi</th>
                                                 <TH>Kabupaten</TH>
@@ -196,6 +199,7 @@
                                                 @if ($buku->status == 'Arsip Dikirim')
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $buku->name }}</td>
                                                         <td>{{ $buku->no_su }}</td>
                                                         <td>{{ $buku->provinsi }}</td>
                                                         <td>{{ $buku->kabupaten }}</td>
@@ -253,6 +257,7 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
+                                                <th>Name</th>
                                                 <th>No Berkas</th>
                                                 <th>Provinsi</th>
                                                 <TH>Kabupaten</TH>
@@ -279,6 +284,7 @@
                                                 @if ($buku->status == 'Peminjaman')
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $buku->name }}</td>
                                                         <td>{{ $buku->no_su }}</td>
                                                         <td>{{ $buku->provinsi }}</td>
                                                         <td>{{ $buku->kabupaten }}</td>
@@ -364,6 +370,7 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
+                                                <th>Name</th>
                                                 <th>No Berkas</th>
                                                 <th>Provinsi</th>
                                                 <TH>Kabupaten</TH>
@@ -390,6 +397,7 @@
                                                 @if ($buku->status == 'Dikembalikan')
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $buku->name }}</td>
                                                         <td>{{ $buku->no_su }}</td>
                                                         <td>{{ $buku->provinsi }}</td>
                                                         <td>{{ $buku->kabupaten }}</td>
@@ -469,6 +477,7 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
+                                                <th>Name</th>
                                                 <th>No Berkas</th>
                                                 <th>Provinsi</th>
                                                 <TH>Kabupaten</TH>
@@ -494,6 +503,7 @@
                                                 @if ($buku->status == 'Selesai')
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $buku->name }}</td>
                                                         <td>{{ $buku->no_su }}</td>
                                                         <td>{{ $buku->provinsi }}</td>
                                                         <td>{{ $buku->kabupaten }}</td>
@@ -590,22 +600,22 @@
         });
     </script>
 
-<script>
-    document.getElementById('confirmation2').addEventListener('click', function() {
-        swal({
-                title: 'Are you sure?',
-                text: 'Apakah anda menyetujui document ini?',
-                icon: 'warning',
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willSubmit) => {
-                if (willSubmit) {
-                    document.getElementById('user-form2').submit();
-                }
-            });
-    });
-</script>
+    <script>
+        document.getElementById('confirmation2').addEventListener('click', function() {
+            swal({
+                    title: 'Are you sure?',
+                    text: 'Apakah anda menyetujui document ini?',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willSubmit) => {
+                    if (willSubmit) {
+                        document.getElementById('user-form2').submit();
+                    }
+                });
+        });
+    </script>
 
     <!-- Page Specific JS File -->
 @endpush

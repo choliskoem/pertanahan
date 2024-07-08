@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('tipe_hak');
             $table->string('provinsi');
             $table->string('kabupaten');
-            $table->string('kecamatan');
-            $table->string('kelurahan');
+            $table->string('id_kecamatan');
+            $table->string('id_kelurahan');
             $table->string('pelayanan');
             $table->string('rak');
             $table->string('baris');
@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('keterangan');
             $table->timestamp('waktu_disetujui')->nullable();
             $table->timestamp('waktu_dipinjam')->nullable();
+            $table->string('name');
             // $table->timestamps();
         });
     }
