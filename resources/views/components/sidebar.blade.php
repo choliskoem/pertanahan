@@ -46,9 +46,9 @@
                         <li>
                             <a class="nav-link" href="{{ route('pengembalian.index') }}">Pengembalian</a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a class="nav-link" href="{{ route('managements.create') }}">Tambah Data</a>
-                        </li>
+                        </li> --}}
                     @endif
 
 
