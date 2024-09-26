@@ -20,9 +20,12 @@ class HomeController extends Controller
         return view('pages.home', compact('total', 'total2', 'total3', 'total4'));
     }
 
-    public function exportpeminjaman()
+    public function exportpeminjaman(Request $request)
     {
-        return Excel::download(new LaporanExport, 'laporan_peminjaman.xlsx');
+        $bulan = $request->input('bulan');
+        $tahun = $request->input('tahun');
+
+        return Excel::download(new LaporanExport($bulan, $tahun), 'laporan_peminjaman.xlsx');
     }
 
     public function exportpengembalian(Request $request)
@@ -34,13 +37,18 @@ class HomeController extends Controller
     }
 
 
-    public function exportarsip()
+
+    public function exportarsip(Request $request)
     {
-        return Excel::download(new LaporanExport2, 'laporan_arsip_dikirim.xlsx');
+        $bulan = $request->input('bulan');
+        $tahun = $request->input('tahun');
+        return Excel::download(new LaporanExport2($bulan, $tahun), 'laporan_arsip_dikirim.xlsx');
     }
 
-    public function exportselesai()
+    public function exportselesai(Request $request)
     {
-        return Excel::download(new LaporanExport4, 'laporan_selesai.xlsx');
+        $bulan = $request->input('bulan');
+        $tahun = $request->input('tahun');
+        return Excel::download(new LaporanExport4($bulan, $tahun), 'laporan_selesai.xlsx');
     }
 }

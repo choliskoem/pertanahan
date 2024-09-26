@@ -17,7 +17,7 @@ class LaporanExport implements FromCollection, WithHeadings, WithMapping, WithSt
      */
     protected $data;
 
-    public function __construct()
+    public function __construct($bulan, $tahun)
     {
         //
         $this->data =   PinjamBukuTanah::select(
@@ -43,6 +43,8 @@ class LaporanExport implements FromCollection, WithHeadings, WithMapping, WithSt
             ->leftJoin('kelurahan', 'kelurahan.id_kelurahan', '=', 'pinjambukutanahs.id_kelurahan')
             ->leftJoin('kecamatan', 'kecamatan.id_kecamatan', '=', 'kelurahan.id_kecamatan')
             ->where('pinjambukutanahs.status', 'Peminjaman')
+            ->whereMonth('pinjambukutanahs.waktu_dipinjam', $bulan)
+            ->whereYear('pinjambukutanahs.waktu_dipinjam', $tahun)
             ->get();
     }
 
