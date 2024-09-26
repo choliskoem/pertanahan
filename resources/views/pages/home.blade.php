@@ -32,10 +32,11 @@
                         </form>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                        <form action="{{ route('export.pengembalian') }}" method="GET">
-                            <div class="form-group">
-                                <label for="bulan">Pilih Bulan:</label>
-                                <select name="bulan" id="bulan" class="form-control">
+                        <form action="{{ route('export.pengembalian') }}" method="GET"
+                            class="p-3 shadow-lg rounded bg-light">
+                            <div class="form-group mb-3">
+                                <label for="bulan" class="font-weight-bold">Pilih Bulan:</label>
+                                <select name="bulan" id="bulan" class="form-control custom-select shadow-sm">
                                     @for ($i = 1; $i <= 12; $i++)
                                         <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}">
                                             {{ date('F', mktime(0, 0, 0, $i, 1)) }}</option>
@@ -43,16 +44,18 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
-                                <label for="tahun">Pilih Tahun:</label>
-                                <select name="tahun" id="tahun" class="form-control">
+                            <div class="form-group mb-3">
+                                <label for="tahun" class="font-weight-bold">Pilih Tahun:</label>
+                                <select name="tahun" id="tahun" class="form-control custom-select shadow-sm">
                                     @for ($i = date('Y'); $i >= 2000; $i--)
                                         <option value="{{ $i }}">{{ $i }}</option>
                                     @endfor
                                 </select>
                             </div>
 
-                            <button class="btn btn-warning" type="submit">Print</button>
+                            <button class="btn btn-warning btn-block shadow-sm" type="submit">
+                                <i class="fas fa-print"></i> Print
+                            </button>
                         </form>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
