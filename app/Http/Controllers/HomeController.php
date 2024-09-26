@@ -25,10 +25,14 @@ class HomeController extends Controller
         return Excel::download(new LaporanExport, 'laporan_peminjaman.xlsx');
     }
 
-    public function exportpengembalian()
+    public function exportpengembalian(Request $request)
     {
-        return Excel::download(new LaporanExport3, 'laporan_pengembalian.xlsx');
+        $bulan = $request->input('bulan');
+        $tahun = $request->input('tahun');
+
+        return Excel::download(new LaporanExport3($bulan, $tahun), 'laporan_pengembalian.xlsx');
     }
+
 
     public function exportarsip()
     {

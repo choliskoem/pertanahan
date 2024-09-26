@@ -17,10 +17,10 @@ class LaporanExport3 implements FromCollection, WithHeadings, WithMapping, WithS
      */
     protected $data;
 
-    public function __construct()
+    public function __construct($bulan, $tahun)
     {
-        //
-        $this->data =   PinjamBukuTanah::select(
+        // Filter berdasarkan bulan dan tahun dari waktu_disetujui
+        $this->data = PinjamBukuTanah::select(
             'pinjambukutanahs.id_pinjam',
             'pinjambukutanahs.provinsi',
             'pinjambukutanahs.kabupaten',
@@ -42,9 +42,12 @@ class LaporanExport3 implements FromCollection, WithHeadings, WithMapping, WithS
         )
             ->leftJoin('kelurahan', 'kelurahan.id_kelurahan', '=', 'pinjambukutanahs.id_kelurahan')
             ->leftJoin('kecamatan', 'kecamatan.id_kecamatan', '=', 'kelurahan.id_kecamatan')
-            ->where('pinjambukutanahs.status', 'Pengembalian')
+            ->where('pinjambukutanahs.status', 'Dikembalikan')
+            ->whereMonth('pinjambukutanahs.waktu_disetujui', $bulan)
+            ->whereYear('pinjambukutanahs.waktu_disetujui', $tahun)
             ->get();
     }
+
 
     public function collection()
     {
