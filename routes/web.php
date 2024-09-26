@@ -9,6 +9,7 @@ use App\Http\Controllers\peminjamanController;
 use App\Http\Controllers\penandatangananController;
 use App\Http\Controllers\pengembalianController;
 use App\Http\Controllers\seksiController;
+use App\Http\Controllers\TambahController;
 use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
@@ -61,6 +62,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('user', userController::class);
 
     Route::resource('penandatanganan', penandatangananController::class);
+
+
+    Route::get('managements/create', [TambahController::class, 'index'])->name('managements.create');
+    Route::post('managements/store', [TambahController::class, 'store'])->name('managements.store');
 
 
     Route::get('import', function () {

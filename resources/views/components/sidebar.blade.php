@@ -18,6 +18,8 @@
                 </ul>
             </li>
 
+
+
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Peminjaman</span></a>
                 <ul class="dropdown-menu">
@@ -34,12 +36,18 @@
                         <li>
                             <a class="nav-link" href="{{ route('listpinjam.index') }}">List Peminjaman</a>
                         </li>
+                        <li>
+                            <a class="nav-link" href="{{ route('managements.create') }}">Tambah Data</a>
+                        </li>
                     @elseif (auth()->user()->level == '1')
                         <li>
                             <a class="nav-link" href="{{ route('peminjaman.index') }}">Peminjaman</a>
                         </li>
                         <li>
                             <a class="nav-link" href="{{ route('pengembalian.index') }}">Pengembalian</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="{{ route('managements.create') }}">Tambah Data</a>
                         </li>
                     @endif
 
