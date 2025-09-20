@@ -6,6 +6,7 @@ use App\Http\Controllers\kecController;
 use App\Http\Controllers\ListpinjamController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\peminjamanController;
+use App\Http\Controllers\peminjamanwarkahController;
 use App\Http\Controllers\penandatangananController;
 use App\Http\Controllers\pengembalianController;
 use App\Http\Controllers\seksiController;
@@ -38,6 +39,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('password/change', [LoginController::class, 'changePassword'])->name('password.update');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::resource('peminjaman', peminjamanController::class);
+    Route::resource('peminjamanwarkah', peminjamanwarkahController::class);
+
     Route::get('/api/data', [peminjamanController::class, 'getOptions']);
     Route::get('get-kelurahans/{kecamatan_id}', [peminjamanController::class, 'getKelurahans']);
     Route::get('get-dokumens/{kelurahan_id}', [peminjamanController::class, 'getDokumens']);
@@ -74,7 +77,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('import', [kecController::class, 'import'])->name('import');
 
-
+Route::put('/peminjamanwarkah/{id}/kembalikan', [PeminjamanWarkahController::class, 'kembalikan'])
+    ->name('peminjamanwarkah.kembalikan');
 
 
 

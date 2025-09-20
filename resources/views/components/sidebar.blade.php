@@ -39,6 +39,9 @@
                         <li>
                             <a class="nav-link" href="{{ route('managements.create') }}">Tambah Data</a>
                         </li>
+                          <li>
+                            <a class="nav-link" href="{{ route('peminjamanwarkah.index') }}">Peminjaman Warkah</a>
+                        </li>
                     @elseif (auth()->user()->level == '1')
                         <li>
                             <a class="nav-link" href="{{ route('peminjaman.index') }}">Peminjaman</a>
