@@ -41,15 +41,15 @@ class pengembalianController extends Controller
 
   public function update($id)
 {
-    $pinjam = pinjambukutanah::findOrFail($id);
+    $pinjam = DB::table('pinjambukutanahs')->where('id_pinjam', $id)->first();
 
-    if ($pinjam->status == 'Arsip Dikirim') {
-        $pinjam->status = 'Dikembalikan';
-    } elseif ($pinjam->status == 'Dikembalikan') {
-        $pinjam->status = 'Selesai';
+    if ($pinjam) {
+        if ($pinjam->status == 'Arsip Dikirim') {
+            DB::table('pinjambukutanahs')->where('id_pinjam', $id)->update(['status' => 'Dikembalikan']);
+        } elseif ($pinjam->status == 'Dikembalikan') {
+            DB::table('pinjambukutanahs')->where('id_pinjam', $id)->update(['status' => 'Selesai']);
+        }
     }
-
-    $pinjam->save();
 
     return redirect()->route('pengembalian.index')->with('success', 'Update Successfully');
 }
