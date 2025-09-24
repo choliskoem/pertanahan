@@ -39,34 +39,18 @@ class pengembalianController extends Controller
         return view('pages.pengembalian.index', ['pinjambukutanahs' => $buku]);
     }
 
-    public function update($id)
-    {
+  public function update($id)
+{
+    $pinjam = pinjambukutanah::findOrFail($id);
 
-        // $pinjam = pinjambukutanah::findOrFail($id);
-
-        // if ($pinjam->status == 'Arsip Dikirim') {
-        //     $pinjam->status = 'Dikembalikan';
-        //     $pinjam->save();
-        // } elseif ($pinjam->status == 'Dikembalikan') {
-        //     $pinjam->status = 'Selesai';
-        //     $pinjam->save();
-        // }
-
-
-
-
-        $pinjams = DB::table('pinjambukutanahs')->get();
-        $waktuSekarang = Carbon::now('Asia/Jakarta');
-        $waktuDitambahSatuJam = $waktuSekarang->addHours(1);
-
-        foreach ($pinjams as $pinjam) {
-            if ($pinjam->status == 'Arsip Dikirim') {
-                $pinjam = DB::table('pinjambukutanahs')->where('id_pinjam', $id)->update(['status' => 'Dikembalikan']);
-            } elseif ($pinjam->status == 'Dikembalikan') {
-                $pinjam = DB::table('pinjambukutanahs')->where('id_pinjam', $id)->update(['status' => 'Selesai']);
-            }
-        }
-
-        return redirect()->route('pengembalian.index')->with('success', 'Update Successfully');
+    if ($pinjam->status == 'Arsip Dikirim') {
+        $pinjam->status = 'Dikembalikan';
+    } elseif ($pinjam->status == 'Dikembalikan') {
+        $pinjam->status = 'Selesai';
     }
+
+    $pinjam->save();
+
+    return redirect()->route('pengembalian.index')->with('success', 'Update Successfully');
+}
 }
