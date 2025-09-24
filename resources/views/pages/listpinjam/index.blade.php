@@ -305,16 +305,12 @@
                                                         <td>{{ $buku->waktu_disetujui }}</td>
                                                         <td>
                                                             @if ($buku->status == 'Peminjaman')
-                                                                <form id="user-form"
-                                                                    action="{{ route('listpinjam.update', $buku->id_pinjam) }}"
-                                                                    method="POST" class="ml-2">
-                                                                    <input type="hidden" name="_method" value="PUT">
-                                                                    <input type="hidden" name="_token"
-                                                                        value="{{ csrf_token() }}">
-                                                                    <button type="button" class="btn btn-primary"
-                                                                        id="confirmation">Ubah</button>
-
-                                                                </form>
+                                                               <form action="{{ route('listpinjam.update', $buku->id_pinjam) }}" 
+      method="POST" class="ml-2 user-form">
+    @method('PUT')
+    @csrf
+    <button type="button" class="btn btn-primary confirmation">Ubah</button>
+</form>
                                                             @endif
 
 
@@ -417,19 +413,14 @@
                                                         <td>{{ $buku->waktu_dipinjam }}</td>
                                                         <td>{{ $buku->waktu_disetujui }}</td>
                                                         <td>
-                                                            @if ($buku->status == 'Dikembalikan')
-                                                                {{-- <button class="btn btn-success">Telah Disetujui</button> --}}
-                                                                <form id="user-form2"
-                                                                    action="{{ route('listpinjam.update', $buku->id_pinjam) }}"
-                                                                    method="POST" class="ml-2">
-                                                                    <input type="hidden" name="_method" value="PUT">
-                                                                    <input type="hidden" name="_token"
-                                                                        value="{{ csrf_token() }}">
-                                                                    <button type="button" class="btn btn-primary"
-                                                                        id="confirmation2">Ubah</button>
-
-                                                                </form>
-                                                            @endif
+                                                          @if ($buku->status == 'Dikembalikan')
+    <form action="{{ route('listpinjam.update', $buku->id_pinjam) }}"
+          method="POST" class="ml-2 user-form">
+        @method('PUT')
+        @csrf
+        <button type="button" class="btn btn-primary confirmation">Ubah</button>
+    </form>
+@endif
                                                         </td>
 
 
@@ -583,23 +574,24 @@
 
 
 
-    <script>
-        document.getElementById('confirmation').addEventListener('click', function() {
-            swal({
-                    title: 'Are you sure?',
-                    text: 'Apakah anda menyetujui document ini?',
-                    icon: 'warning',
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willSubmit) => {
-                    if (willSubmit) {
-                        document.getElementById('user-form').submit();
-                    }
-                });
+<script>
+document.querySelectorAll('.confirmation').forEach(function(button) {
+    button.addEventListener('click', function() {
+        let form = this.closest('.user-form'); // form pada baris yang sama
+        swal({
+            title: 'Are you sure?',
+            text: 'Apakah anda menyetujui dokumen ini?',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+        }).then((willSubmit) => {
+            if (willSubmit) {
+                form.submit();
+            }
         });
-    </script>
-
+    });
+});
+</script>
     <script>
         document.getElementById('confirmation2').addEventListener('click', function() {
             swal({
