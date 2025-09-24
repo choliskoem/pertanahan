@@ -47,25 +47,37 @@ class ListpinjamController extends Controller
     }
 
 
-    public function update($id)
-    {
+   public function update($id)
+{
+    $pinjam = DB::table('pinjambukutanahs')->where('id_pinjam', $id)->first();
 
-        $pinjams = DB::table('pinjambukutanahs')->get();
-        $waktuSekarang = Carbon::now('Asia/Jakarta');
-        $waktuDitambahSatuJam = $waktuSekarang->addHours(1);
-
-        foreach ($pinjams as $pinjam) {
-            if ($pinjam->status == 'Peminjaman') {
-                $pinjam = DB::table('pinjambukutanahs')->where('id_pinjam', $id)->update(['status' => 'Arsip Dikirim', 'waktu_disetujui' => $waktuDitambahSatuJam]);
-            } elseif ($pinjam->status == 'Arsip Dikirim') {
-                $pinjam = DB::table('pinjambukutanahs')->where('id_pinjam', $id)->update(['status' => 'Dikembalikan']);
-            } elseif ($pinjam->status == 'Dikembalikan') {
-                $pinjam = DB::table('pinjambukutanahs')->where('id_pinjam', $id)->update(['status' => 'Selesai']);
-            }
-        }
-
-        return redirect()->route('listpinjam.index')->with('success', 'Update Successfully');
+    if (!$pinjam) {
+        return redirect()->route('listpinjam.index')->with('error', 'Data tidak ditemukan');
     }
+
+    $waktuSekarang = Carbon::now('Asia/Jakarta');
+    $waktuDitambahSatuJam = $waktuSekarang->copy()->addHour();
+
+    if ($pinjam->status == 'Peminjaman') {
+        DB::table('pinjambukutanahs')
+            ->where('id_pinjam', $id)
+            ->update([
+                'status' => 'Arsip Dikirim',
+                'waktu_disetujui' => $waktuDitambahSatuJam,
+            ]);
+    } elseif ($pinjam->status == 'Arsip Dikirim') {
+        DB::table('pinjambukutanahs')
+            ->where('id_pinjam', $id)
+            ->update(['status' => 'Dikembalikan']);
+    } elseif ($pinjam->status == 'Dikembalikan') {
+        DB::table('pinjambukutanahs')
+            ->where('id_pinjam', $id)
+            ->update(['status' => 'Selesai']);
+    }
+
+    return redirect()->route('listpinjam.index')->with('success', 'Update Successfully');
+}
+
 
     public function export()
     {
